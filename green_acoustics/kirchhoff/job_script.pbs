@@ -1,0 +1,11 @@
+#!/bin/sh 
+#This job should be redirected to idqueue
+#PBS -N Monopole
+#PBS -l select=1:ncpus=24
+#PBS -l walltime=01:00:00
+#PBS -l place=scatter
+#PBS -l accelerator_type="None"
+#PBS -S /bin/sh@sdb -V 
+. /opt/modules/default/init/sh
+cd $PBS_O_WORKDIR
+aprun -j 1 -n 24 -N 24 ./a.out
