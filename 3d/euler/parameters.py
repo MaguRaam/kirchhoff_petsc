@@ -28,17 +28,17 @@ xmax = 2.0
 h = (xmax - xmin)/N
 
 #Kirchhoff box
-lower    =   80
-upper    =   120
+lower    =   40
+upper    =   160
 
 #Reciever location (cell index)
-iox  =   150
+iox  =   170
 
 #-----------------------------------------------------------#
 
 
 #Reciever location (coordinate of cell center)
-ox   =  xmin + (iox)*h - 0.5*h
+ox   =  xmin + (iox)*h - 0.5*h;
 
 #Kirchhoff box coordinate:
 lowerx = xmin + (lower)*h - h

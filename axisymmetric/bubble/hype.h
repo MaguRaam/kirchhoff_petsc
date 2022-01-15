@@ -295,6 +295,9 @@ typedef struct {
     array3d* gradphiFace_x;           /* Gradient in x-direction on volume quadrature points */
     array3d* gradphiFace_y;           /* Gradient in y-direction on volume quadrature points */
     Kirchhoff box;
+    
+    
+
     PetscInt io;                      /*observer location in x direction*/
     PetscInt jo;                      /*observer location in y direction*/
     

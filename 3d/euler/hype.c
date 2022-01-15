@@ -42,9 +42,9 @@ int main(int argc,char **argv) {
     Ctx.CFL             =  0.9; 
     Ctx.InitialStep     =  0; 
     Ctx.InitialTime     =  0.0;                            
-    Ctx.FinalTime       =  2.5;                            
+    Ctx.FinalTime       =  1.5;                            
     Ctx.WriteInterval   =  500;      
-    Ctx.RestartInterval =  1000;
+    Ctx.RestartInterval =  500;
     Ctx.left_boundary   =  transmissive;                   
     Ctx.right_boundary  =  transmissive;                   
     Ctx.bottom_boundary =  transmissive;                     
@@ -55,17 +55,17 @@ int main(int argc,char **argv) {
     Ctx.Restart         =  PETSC_FALSE; 
     Ctx.h               =  (Ctx.x_max - Ctx.x_min)/(PetscReal)(Ctx.N_x);  
     
-    Ctx.box.lower[0]    =   80;
-    Ctx.box.lower[1]    =   80;
-    Ctx.box.lower[2]    =   80;
+    Ctx.box.lower[0]    =   40;
+    Ctx.box.lower[1]    =   40;
+    Ctx.box.lower[2]    =   40;
     
-    Ctx.box.upper[0]    =   120;
-    Ctx.box.upper[1]    =   120;
-    Ctx.box.upper[2]    =   120;
+    Ctx.box.upper[0]    =   160;
+    Ctx.box.upper[1]    =   160;
+    Ctx.box.upper[2]    =   160;
     
-    Ctx.iox             =   150;
-    Ctx.ioy             =   150;
-    Ctx.ioz             =   150;
+    Ctx.iox             =   170;
+    Ctx.ioy             =   170;
+    Ctx.ioz             =   170;
     
     
     // --------------------------------------------

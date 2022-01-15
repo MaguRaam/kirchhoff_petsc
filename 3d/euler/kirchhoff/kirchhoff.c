@@ -403,14 +403,14 @@ int main(int argc, char **argv)
     // Set important user defined parameters
     //---------------------------------------------
     //!The parameters should match the fluid solver:
-    Point     xo              =   {1.495, 1.495, 1.495};             //observer location
-    PetscReal c               =   1.18321595661992318;                  //acoustic wave speed
+    Point     xo              =   {1.695, 1.695, 1.695};             	//observer location
+    PetscReal c               =   1.18321595661992318;               	//acoustic wave speed
     PetscReal h               =   0.01;                                //cell size
-    PetscInt  Tnqpts          =   40344;                               //Total no of quad points
+    PetscInt  Tnqpts          =   351384;                               //Total no of quad points
 
     
     PetscReal to              =   0.0;                                  // observer start time
-    PetscReal tf              =   0.8;                                  // observer end time
+    PetscReal tf              =   1.5;                                  // observer end time
     PetscReal dt              =   0.01;                                 // observer time step
     
 

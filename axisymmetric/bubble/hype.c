@@ -12,7 +12,7 @@ static char help[] = "4th Order 2D code for solving Multiphase Euler equations u
 //----------------------------------------------------------------------------
 
 int main(int argc,char **argv) {
-
+    
     // --------------------------------------------
     // Initialize MPI 
     //---------------------------------------------
