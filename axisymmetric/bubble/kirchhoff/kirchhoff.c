@@ -62,8 +62,8 @@ PetscErrorCode  ComputeArea(DM da, PetscReal R, PetscReal hx, PetscReal hy){
   //scale area:
   global_area = R*global_area*hx*hy;
 
-  ierr = PetscPrintf(PETSC_COMM_WORLD, "exact area = %g\n", 2.0*PETSC_PI*R*2.0*0.38); CHKERRQ(ierr);
-  ierr = PetscPrintf(PETSC_COMM_WORLD, "numerical area = %g\n", global_area); CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD, "exact area = %.16g\n", 2.0*PETSC_PI*R*2.0*0.38); CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD, "numerical area = %.16g\n", global_area); CHKERRQ(ierr);
 
 
 
@@ -127,10 +127,10 @@ int main(int argc, char **argv){
   
   ierr = DMDACreate2d(PETSC_COMM_WORLD, DM_BOUNDARY_PERIODIC, DM_BOUNDARY_PERIODIC, DMDA_STENCIL_BOX, Nx, Ny, PETSC_DECIDE, PETSC_DECIDE, 1, 1, NULL, NULL, &da); CHKERRQ(ierr);
   ierr = DMSetUp(da);CHKERRQ(ierr);
-  ierr = DMDASetUniformCoordinates(da, x_min, x_max, y_min, y_max, 0.0, 0.0); CHKERRQ(ierr);
+  ierr = DMDASetUniformCoordinates(da, x_min + 0.5*hx, x_max - 0.5*hx, y_min + 0.5*hy, y_max - 0.5*hy , 0.0, 0.0); CHKERRQ(ierr);
   
   
-  ierr = ComputeArea(da, 1.0, hx, hy); CHKERRQ(ierr);
+  ierr = ComputeArea(da, R, hx, hy); CHKERRQ(ierr);
 
 
 

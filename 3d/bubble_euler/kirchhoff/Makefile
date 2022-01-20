@@ -11,4 +11,4 @@ $(TARGET) : $(TARGET).o
 	$(RM) $(TARGET).o
 
 distclean :
-	$(RM) $(TARGET)
+	$(RM) $(TARGET) *.dat *.info *.png

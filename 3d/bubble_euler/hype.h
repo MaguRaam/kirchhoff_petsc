@@ -30,26 +30,20 @@
 // Various constants used throught the code 
 //----------------------------------------------------------------------------
 
-#define nVar 5      /* Number of components in the PDE system */ 
-#define DIM 2       /* Dimensions of the problem */
-#define nDOF 10     /* Number of degrees of freedom polynomial expansion in a cell */
+#define nVar 6      /* Number of components in the PDE system */ 
+#define DIM 3       /* Dimensions of the problem */
+#define nDOF 20     /* Number of degrees of freedom polynomial expansion in a cell */
 
-// Physical Constants 
-
-static const PetscReal g1            = 4.4;     /* Stiffness constant of the solid phase */
-static const PetscReal g2            = 1.4;     /* Stiffness constant of the gas phase */
-static const PetscReal p1            = 6000.0;  /* Specific heat ratio of the solid phase */
-static const PetscReal p2            = 0.0;     /* Specific heat ratio of the gas phase */
-static const PetscReal p0            = 1.0e6;   /* Initial pressure outside the bubble*/
-static const PetscReal mu1           = 0.0;     /* Dynamic viscosity of first phase */
-static const PetscReal mu2           = 0.0;;    /* Dynamic viscosity of second phase */
-
-static const PetscReal prs_floor     = 1.0e-12; /* Pressure floor value */
-static const PetscReal rho_floor     = 1.0e-14; /* Density floor value */
-static const PetscReal small_num     = 1.0e-12; /* Effective small number in the code */
-static const PetscInt  s_width       = 5;       /* Width of the stencil */ 
-
-static const PetscReal R             = 0.038;   /* Bubble radius*/
+/*Note: See the parameters.py file for details*/
+static const PetscReal g1            = 4.4;                        /* Specific heat ratio of first phase */
+static const PetscReal g2            = 1.4;                        /* Specific heat ratio of second phase */
+static const PetscReal p1            = 6000.0;                     /* Stiffness constant of first phase */
+static const PetscReal p2            = 0.0;                        /* Stiffness constant of second phase */
+static const PetscReal po            = 1.0;                        /* Initial pressure outside the bubble*/
+static const PetscReal prs_floor     = 1.0e-12;                    /* Pressure floor value */
+static const PetscReal rho_floor     = 1.0e-14;                    /* Density floor value */
+static const PetscReal small_num     = 1.0e-12;                    /* Effective small number in the code */
+static const PetscInt  s_width       = 5;                          /* Width of the stencil */ 
 
 // Mid-point Rule  (One-point gauss quadrature)
 
@@ -59,9 +53,12 @@ static const PetscReal w_gp1[] = {1.0};
 
 // Two-point quadrature  
 
+static const PetscReal qp1 = -0.28867513459481287;
+static const PetscReal qp2 =  0.28867513459481287;
+
 static const PetscInt N_gp2 = 2; 
-static const PetscReal x_gp2[] = {-0.28867513459481287, 0.28867513459481287}; 
-static const PetscReal w_gp2[] = { 0.50000000000000000, 0.50000000000000000}; 
+static const PetscReal x_gp2[] = {qp1, qp2}; 
+static const PetscReal w_gp2[] = {0.5, 0.5}; 
 
 // Three-point quadrature
 
@@ -90,30 +87,32 @@ static const PetscReal w_gp[] = {0.2777777777777778, 0.4444444444444444, 0.27777
 // 2D - two point quadrature points in [-0.5,0.5]x[-0.5,0.5]
 
 static const PetscInt N_gp2d = 4;
-static const PetscReal x_gp2d[] = {-0.28867513459481287, -0.28867513459481287,  0.28867513459481287, 0.28867513459481287};
-static const PetscReal y_gp2d[] = {-0.28867513459481287,  0.28867513459481287, -0.28867513459481287, 0.28867513459481287};
-static const PetscReal w_gp2d[] = {0.25,  0.25, 0.25, 0.25};
+static const PetscReal x_gp2d[] = {qp1,qp1,qp2,qp2};
+static const PetscReal y_gp2d[] = {qp1,qp2,qp1,qp2};
+static const PetscReal w_gp2d[] = {0.25,0.25,0.25,0.25};
 
-// Nodal points for evaluation of quality of solution 
+// 3D - two point quadrature points in [-0.5,0.5]x[-0.5,0.5]x[-0.5,0.5]
 
-/*
-static const PetscInt N_node = 9;
-static const PetscReal x_node[] = {0.0, 0.5, -0.5, 0.0,  0.0, 0.5, -0.5,  0.5, -0.5};
-static const PetscReal y_node[] = {0.0, 0.0,  0.0, 0.5, -0.5, 0.5,  0.5, -0.5, -0.5};
-*/
+static const PetscInt N_gp3d = 8;
+static const PetscReal x_gp3d[] = {qp1,qp2,qp1,qp2,qp1,qp2,qp1,qp2};
+static const PetscReal y_gp3d[] = {qp1,qp1,qp2,qp2,qp1,qp1,qp2,qp2};
+static const PetscReal z_gp3d[] = {qp1,qp1,qp1,qp1,qp2,qp2,qp2,qp2};
+static const PetscReal w_gp3d[] = {0.125,0.125,0.125,0.125,0.125,0.125,0.125,0.125};
 
-static const PetscInt N_node = 8;
-static const PetscReal x_node[] = { 0.50000000000000000, 0.50000000000000000, -0.50000000000000000, -0.50000000000000000, -0.28867513459481287,  0.28867513459481287, -0.28867513459481287, 0.28867513459481287};
-static const PetscReal y_node[] = {-0.28867513459481287, 0.28867513459481287, -0.28867513459481287,  0.28867513459481287, -0.50000000000000000, -0.50000000000000000,  0.50000000000000000, 0.50000000000000000};
+static const PetscInt N_node = 24;
+static const PetscReal x_node[] = {0.5,0.5,0.5,0.5, -0.5,-0.5,-0.5,-0.5, qp1,qp1,qp2,qp2,  qp1, qp1, qp2, qp2, qp1,qp1,qp2,qp2,  qp1, qp1, qp2, qp2};
+static const PetscReal y_node[] = {qp1,qp1,qp2,qp2,  qp1, qp1, qp2, qp2, 0.5,0.5,0.5,0.5, -0.5,-0.5,-0.5,-0.5, qp1,qp2,qp1,qp2,  qp1, qp2, qp1, qp2};
+static const PetscReal z_node[] = {qp1,qp2,qp1,qp2,  qp1, qp2, qp1, qp2, qp1,qp2,qp1,qp2,  qp1, qp2, qp1, qp2, 0.5,0.5,0.5,0.5, -0.5,-0.5,-0.5,-0.5};
 
 // Some rational numbers frequently used throught the code
 
-static const PetscReal r1_6  = 1./6.; 
-static const PetscReal r13_3 = 13./3.; 
-static const PetscReal r7_6  = 7./6.;  
-static const PetscReal r11_120 = 11./120.;
-static const PetscReal r1_12 = 1./12.;  
-static const PetscReal r41_60 = 41./60.; 
+static const PetscReal r1_6  = 1./6.;
+static const PetscReal r1_12  = 1./12.; 
+static const PetscReal r3_20  = 3./20.;
+static const PetscReal r1_120  = 1./120.; 
+static const PetscReal r13_3   = 13./3.;
+static const PetscReal r7_6   =  7./6.; 
+static const PetscReal r61_48  = 61./48.;    
 
 //----------------------------------------------------------------------------
 // Structure representing a multi-component field vector 
@@ -123,12 +122,11 @@ typedef struct {
     PetscReal comp[nVar];
 } Field;
 
-
 //----------------------------------------------------------------------------
 // Various types of boundary conditions 
 //----------------------------------------------------------------------------
 
-enum bndry_type{inflow, periodic, transmissive, adiabatic_wall};
+enum bndry_type{inflow, periodic, reflective, transmissive};
 
 //----------------------------------------------------------------------------
 // Multidimensional array structures (upto 7 dimensions)
@@ -246,18 +244,42 @@ PetscReal get_element_7d(array7d*, PetscInt, PetscInt, PetscInt, PetscInt, Petsc
 void min_max_7d(array7d*, PetscReal*, PetscReal*);
 
 
-//----------------------------------------------------------------------------------
-// Structure to store data for Kirchhoff line surface located parallel to z axis
-//----------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+// Structure to define 3D cell index
+//----------------------------------------------------------------------------
+
+typedef struct{ 
+  PetscInt i, j, k;
+} CellIndex;
+
+
+//----------------------------------------------------------------------------
+// Structure to define 3D point or vector
+//----------------------------------------------------------------------------
+
+typedef struct{ 
+  PetscReal x, y, z;
+} Point;
+
+
+//----------------------------------------------------------------------------
+// Structure to store data for Kirchhoff box surface
+//----------------------------------------------------------------------------
+
 typedef struct{
 
-  PetscInt  j;                        /* j index of Kirchhoff line surface*/   
-  Vec       i;                        /* i indices of Kirchhoff Line surface */
-  PetscInt ncells;                    /* no of cells on the Kirchhoff line surface in the current process*/
-  Vec      P, Pr;                     /* perturbed pressure and its normal derivative stored at quadrature points*/
+    PetscInt lower[3];               /*left most corner cell index of the box*/   
+    PetscInt upper[3];               /*right most corner cell index of the box*/   
+    PetscInt ncells[6];              /*no of cells in each face of the box in the current process*/
+    CellIndex *indices[6];           /*cell indices of each face of the box in the current process*/
+    PetscInt nqpts;                  /*no of quadrature points in the current process*/
+    PetscInt Tnqpts;					       /*total no of quadpoints*/
+    Vec Xq;                          /*coordinates of quadrature points*/
+    Vec Nq;                          /*normal vectors at quadrature points*/
+    Vec P, Pn;                       /*pressure and its derivatives stored at quadrature points*/
 
 } Kirchhoff;
-
 
 
 //----------------------------------------------------------------------------
@@ -267,41 +289,50 @@ typedef struct{
 typedef struct {
     PetscReal x_min;                  /* x-coordinate of the domain begining */  
     PetscReal y_min;                  /* y-coordinate of the domain begining */
+    PetscReal z_min;                  /* z-coordinate of the domain begining */
     PetscReal x_max;                  /* x-coordinate of the domain ending */
     PetscReal y_max;                  /* y-coordinate of the domain ending */
+    PetscReal z_max;                  /* z-coordinate of the domain ending */
     PetscInt N_x;                     /* No. of cells in the x-direction */
     PetscInt N_y;                     /* No. of cells in the y-direction */
+    PetscInt N_z;                     /* No. of cells in the z-direction */ 
     PetscReal CFL;                    /* CFL condition, should be less than 0.5 */
     PetscReal dt;                     /* Time step size */
     PetscReal h;                      /* Grid size */
-    PetscBool Restart;                /* Whether to start from restart file */
-    PetscInt InitialStep;             /* Initial time step */
+    PetscReal InitialStep;            /* Initial step number of the simulation */
     PetscReal InitialTime;            /* Initial time of the simulation */
     PetscReal FinalTime;              /* Final time of the simulation */
     PetscInt WriteInterval;           /* No. of time steps after which data should be written */
-    PetscInt RestartInterval;         /* No. of time steps after which restart file should be written */
+    PetscBool ReconsPrimitive;        /* Flag to reconstruct primitive or conserved variables */
+    PetscInt RestartInterval;         /* Number of time steps after which to write restart data file */
+    PetscBool Restart;                /* Wether to start from the restart file or freshly from the initial condition */
     enum bndry_type left_boundary;    /* Boundary condition on the left face */
     enum bndry_type right_boundary;   /* Boundary condition on the right face */
     enum bndry_type top_boundary;     /* Boundary condition on the top face */
     enum bndry_type bottom_boundary;  /* Boundary condition on the bottom face */
+    enum bndry_type front_boundary;   /* Boundary condition on the front face */
+    enum bndry_type back_boundary;    /* Boundary condition on the back face */
     Vec W;                            /* Vector of primitive variables */
     Vec localU;                       /* Local solution vector */
-    array5d* u_bnd;                   /* Boundary extrapolated values of conservative variables */
-    array6d* u_bnd_grad;              /* Boundary extrapolated gradients of conservative variables */
-    array3d* F;                       /* Upwind flux in x-direction */
-    array3d* G;                       /* Upwind flux in y-direction */
+    array6d* u_bnd;                   /* Boundary extrapolated values of conservative variables */
     array3d* phiFace;                 /* Values of basis functions on faces */
     array2d* phiNode;                 /* Values of basis functions on interior nodes */
     array2d* phiVol;                  /* Values of basis functions on volume quadrature points */
     array2d* gradphiVol_x;            /* Gradient in x-direction on volume quadrature points */
     array2d* gradphiVol_y;            /* Gradient in y-direction on volume quadrature points */
-    array3d* gradphiFace_x;           /* Gradient in x-direction on volume quadrature points */
-    array3d* gradphiFace_y;           /* Gradient in y-direction on volume quadrature points */
-    
-    Kirchhoff surface;                /* Object to store data for Kirchhoff surface*/
+    array2d* gradphiVol_z;            /* Gradient in z-direction on volume quadrature points */
+    array4d* Fx;                      /* Upwind flux in x-direction */
+    array4d* Fy;                      /* Upwind flux in y-direction */
+    array4d* Fz;                      /* Upwind flux in z-direction */
+    array4d* Dx;                      /* Fluctuation in x-direction */
+    array4d* Dy;                      /* Fluctuation in y-direction */
+    array4d* Dz;                      /* Fluctuation in z-direction */
+
+    Kirchhoff box;                    /* object to store data for Kirchhoff box surface*/
     
     PetscInt io;                      /*observer location in x direction*/
     PetscInt jo;                      /*observer location in y direction*/
+    PetscInt ko;                      /*observer location in z direction*/
     
 } AppCtx;
 
@@ -312,46 +343,59 @@ typedef struct {
 void PDECons2Prim(const PetscReal*, PetscReal*);
 void PDEPrim2Cons(const PetscReal*, PetscReal*);
 
+/* Input variables are conserved variables */
+
+PetscReal PDEFlux(const PetscReal*, const PetscReal, const PetscReal, const PetscReal, const PetscReal, const PetscReal,  const PetscReal, PetscReal*); 
+void PDENCP(const PetscReal*, const PetscReal*, const PetscReal*, const PetscReal*, PetscReal*);
+PetscBool PDECheckPAD(const PetscReal*);
+PetscReal LLFRiemannSolver(const PetscReal*, const PetscReal*, PetscReal, PetscReal, PetscReal, PetscReal, PetscReal, PetscReal, PetscReal*, PetscReal*);
+
 /* Input variables are primitive variables */
 
-PetscReal PDEFluxPrim(const PetscReal*, const PetscReal, const PetscReal, const PetscReal,  const PetscReal, PetscReal*);
+PetscReal PDEFluxPrim(const PetscReal*, const PetscReal, const PetscReal, const PetscReal, const PetscReal, const PetscReal,  const PetscReal, PetscReal*); 
+void PDENCPPrim(const PetscReal*, const PetscReal*, const PetscReal*, const PetscReal*, PetscReal*);
 PetscBool PDECheckPADPrim(const PetscReal*);
-PetscReal PDEViscFluxPrim(PetscReal,const PetscReal*, const PetscReal grad_V[nVar][DIM], PetscReal, PetscReal, PetscReal*);
-PetscReal HLLCRiemannSolver(const PetscReal*, const PetscReal*, const PetscReal, const PetscReal, const PetscReal,  const PetscReal, PetscReal*);
-PetscReal rotHLLCRiemannSolver(const PetscReal*, const PetscReal*, const PetscReal, const PetscReal, const PetscReal,  const PetscReal, PetscReal*);
-PetscReal ViscLLFRiemannSolverPrim(PetscReal,const PetscReal*, PetscReal grad_VL[nVar][DIM], const PetscReal*, PetscReal grad_VR[nVar][DIM], const PetscReal, const PetscReal, PetscReal*);
-void PDESource(PetscReal, const PetscReal*, const PetscReal*, const PetscReal*, PetscReal*);
+PetscReal LLFRiemannSolverPrim(const PetscReal*, const PetscReal*, PetscReal, PetscReal, PetscReal, PetscReal, PetscReal, PetscReal, PetscReal*, PetscReal*);
 
 //----------------------------------------------------------------------------
-// WENO reconstruction 
+// WENO and TVD reconstruction 
 //----------------------------------------------------------------------------
 
-PetscReal basis(PetscReal, PetscReal, PetscInt);
-void basis_grad(PetscReal, PetscReal, PetscInt, PetscReal*, PetscReal*);
+PetscReal basis(PetscReal, PetscReal, PetscReal, PetscInt);
+void basis_grad(PetscReal, PetscReal, PetscReal, PetscInt, PetscReal*, PetscReal*, PetscReal*);
 PetscReal minmod(PetscReal, PetscReal); 
-void weno(const PetscReal U_x[], const PetscReal U_y[], const PetscReal U_xy[], PetscReal u_coeffs[], PetscReal coeffs[]);
-PetscReal evaluate_polynomial(const PetscReal x, const PetscReal y, const PetscReal coeffs[]);
-void evaluate_grad(const PetscReal coeffs[], PetscReal x, PetscReal y, const PetscReal h, PetscReal* grad_x, PetscReal* grad_y);
+void weno(const PetscReal U_x[], const PetscReal U_y[], const PetscReal U_z[], 
+          const PetscReal U_xy[], const PetscReal U_yz[], const PetscReal U_zx[], const PetscReal U_xyz[],
+         PetscReal coeffs[]);
+PetscReal evaluate_polynomial(const PetscReal, const PetscReal, const PetscReal, const PetscReal coeffs[]);
+void evaluate_grad(const PetscReal coeffs[], PetscReal, PetscReal, PetscReal, const PetscReal,  PetscReal*, PetscReal*, PetscReal*);
+
+
 
 //----------------------------------------------------------------------------
 // Main functions related to the solver 
 //----------------------------------------------------------------------------
 
-void InitialCondition(PetscReal, PetscReal, PetscReal*);
+void InitialCondition(PetscReal, PetscReal, PetscReal, PetscReal*);
 PetscErrorCode InitializeSolution(Vec, DM, AppCtx);
+PetscErrorCode ComputePrimitiveVariables(Vec, Vec, DM);
 PetscErrorCode RHSFunction(TS, PetscReal, Vec, Vec, void*);
 PetscErrorCode RHSFunctionPrim(TS, PetscReal, Vec, Vec, void*);
 PetscErrorCode MonitorFunction (TS, PetscInt, PetscReal, Vec, void*);
 PetscErrorCode ErrorNorms(Vec, DM, AppCtx, PetscReal*, PetscReal*);
-PetscErrorCode ComputePrimitiveVariables(Vec, Vec, DM);
+
 
 //----------------------------------------------------------------------------
-// Functions related to the Kirchhoff line surface 
+// Functions related to the Kirchhoff surface 
 //----------------------------------------------------------------------------
-PetscErrorCode GetCellIndexOnLineSurface(DM, AppCtx*);
-PetscErrorCode InitializePressureOnLineSurface(DM, AppCtx*);
-PetscErrorCode GetPressureOnLineSurface(Vec, DM, AppCtx*, PetscInt);
-PetscErrorCode  DestroyKirchoffLineSurface(AppCtx*);
+
+PetscErrorCode  GetNumberOfCellsOnBoxFaces(DM, AppCtx*);
+PetscErrorCode  GetCellIndicesOnBoxFaces(DM, AppCtx*);
+PetscErrorCode  GetQuadPointsOnBoxFaces(DM, AppCtx*);
+PetscErrorCode  InitializePressureOnBoxFaces(AppCtx*);
+PetscErrorCode  GetPressureOnBoxFaces(Vec, DM, AppCtx*, PetscInt);
+PetscErrorCode  DestroyKirchoffBoxSurface(AppCtx*);
 
 
 #endif /* HYPE_H_ */ 
+ 

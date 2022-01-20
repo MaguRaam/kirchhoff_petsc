@@ -99,6 +99,26 @@ void basis_grad(PetscReal x, PetscReal y, PetscInt n, PetscReal* grad_x, PetscRe
     }
 }
 
+
+PetscReal evaluate_polynomial(const PetscReal x, const PetscReal y, const PetscReal coeffs[]) {
+  
+  return coeffs[0] + coeffs[1]*x + coeffs[2]*y + coeffs[3]*(x*x - 1./12.) + coeffs[4]*(y*y - 1./12.) +
+         coeffs[5]*(x*y) + coeffs[6]*(x*(x*x - 3./20.)) + coeffs[7]*(y*(y*y - 3./20.)) + coeffs[8]*(y*(x*x - 1./12.)) + coeffs[9]*(x*(y*y - 1./12.));
+}   
+
+
+void evaluate_grad(const PetscReal coeffs[], PetscReal x, PetscReal y, const PetscReal h, 
+                                PetscReal* grad_x, PetscReal* grad_y) {
+
+  *grad_x = coeffs[1] + coeffs[3]*(2.0*x) + coeffs[5]*y + coeffs[6]*(3.0*x*x - 3./20.) + coeffs[8]*(2.0*x*y) + coeffs[9]*(y*y - 1./12.);
+  *grad_y = coeffs[2] + coeffs[4]*(2.0*y) + coeffs[5]*x + coeffs[7]*(3.0*y*y - 3./20.) + coeffs[8]*((x*x - 1./12.)) + coeffs[9]*(2.0*x*y);
+}
+
+
+
+
+
+
 //----------------------------------------------------------------------------
 // Various slope limiters 
 //----------------------------------------------------------------------------

@@ -206,14 +206,17 @@ PetscErrorCode MonitorFunction (TS ts,PetscInt step, PetscReal time, Vec U, void
 
                 //write p' = (p - p0):
                 FILE *f = fopen("kirchhoff/p_weno.dat", "a+");
-                ierr = PetscFPrintf(PETSC_COMM_SELF, f, "%.12e\t%.12e\n", time, V[3] - po); CHKERRQ(ierr);
+                ierr = PetscFPrintf(PETSC_COMM_SELF, f, "%.12e\t%.12e\n", time, V[3] - p0); CHKERRQ(ierr);
                 fclose(f);
             }
         }
     }
 
-
     ierr = DMDAVecRestoreArrayRead(da, U, &u); CHKERRQ(ierr);
+
+    //Write p', p'r on Kirchhoff surface:
+    ierr = GetPressureOnLineSurface(U, da, Ctx, step); CHKERRQ(ierr);
+
 
     return ierr;
 }

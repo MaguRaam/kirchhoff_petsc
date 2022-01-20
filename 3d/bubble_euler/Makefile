@@ -13,9 +13,9 @@ include ${PETSC_DIR}/lib/petsc/conf/test
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ) 
+$(TARGET): $(OBJ)  chkopts
 	-${CLINKER} -o $(TARGET) $(OBJ) ${PETSC_LIB}
+	${RM} $(OBJ)
 	
-
 distclean :
-	@$(RM) $(TARGET) *.vts restart* *.csv kirchhoff/input/* kirchhoff/p_weno.dat
+	$(RM) $(TARGET) *.vts *.png *.dat *.dat.info *.bin *.bin*

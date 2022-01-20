@@ -46,7 +46,10 @@ int main(int argc,char **argv) {
     Ctx.bottom_boundary =  transmissive;
     Ctx.top_boundary    =  transmissive;
     Ctx.Restart         =  PETSC_FALSE;
-    Ctx.h               =  (Ctx.x_max - Ctx.x_min)/(PetscReal)(Ctx.N_x);  
+    Ctx.h               =  (Ctx.x_max - Ctx.x_min)/(PetscReal)(Ctx.N_x);
+
+    //j index of Kirchhoff surface:
+    Ctx.surface.j       =   230;  
 
     //observer grid point:
     Ctx.io              =   250;
@@ -122,6 +125,12 @@ int main(int argc,char **argv) {
                                         Ctx.x_min + 0.5*Ctx.h, Ctx.x_max - 0.5*Ctx.h,
                                         Ctx.y_min + 0.5*Ctx.h, Ctx.y_max - 0.5*Ctx.h,
                                         0.0,0.0);CHKERRQ(ierr);
+   
+   
+    // Allocate Memory for Kirchhoff line surface:
+    ierr = GetCellIndexOnLineSurface(da, &Ctx); CHKERRQ(ierr);
+    ierr = InitializePressureOnLineSurface(da, &Ctx); CHKERRQ(ierr);
+
     // Set names of the fields
                                         
     ierr = PetscObjectSetName((PetscObject)U,"cons");CHKERRQ(ierr);
@@ -299,6 +308,7 @@ int main(int argc,char **argv) {
     ierr = TSDestroy(&ts);CHKERRQ(ierr);
     ierr = VecDestroy(&Ctx.localU);CHKERRQ(ierr);
     ierr = VecDestroy(&Ctx.W);CHKERRQ(ierr);
+    ierr = DestroyKirchoffLineSurface(&Ctx); CHKERRQ(ierr);
 
     free5d(Ctx.u_bnd);
     free6d(Ctx.u_bnd_grad);

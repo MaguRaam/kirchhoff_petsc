@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{amsmath, latexsym}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{bigints}
+\usepackage{float}
+\usepackage{titling}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[style=authoryear,sorting=nty,maxcitenames=1]{biblatex}
+
+
+\title{Computation of sound waves emitted by bubble collapse using Kirchhoff method}
+\date{\today}
+\addbibresource{references.bib}
+
+
+\begin{document}
+\maketitle
+\section{Test case}
+
+An air bubble of radius $R = 10$ mm is placed at the center of a cuboidal domain of size $[-50, 50] \times [-50, 50] \times [-50, 50]$ mm containing water. The thermodynamic properties of the system is give below. 
+
+\begin{table}[h!]
+    \begin{center}
+        \begin{tabular}{ccc}
+            \hline
+            Thermodynamic properties      & Water   & Air     \\
+            \hline
+                                          &         &         \\
+            Density, $\rho$ (kgm$^{-3}$)  & 1000    & 1.0     \\
+            Pressure, $P$ (kPa)           & 101.325 & 10.1325 \\
+            Specific heat ratio, $\gamma$ & 4.4     & 1.4     \\
+            Speed of sound,      $c$  (ms$^{-1}$)     & 1500    &  -       \\
+            \hline
+        \end{tabular}
+
+        \caption{Properties of water and air bubble}
+    \end{center}
+\end{table}
+
+
+
+
+\printbibliography
+\end{document}
+
