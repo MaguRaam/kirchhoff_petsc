@@ -20,11 +20,10 @@ src  = -2. * (time - t0) * (f0 ** 2) * (np.exp(-1.0 * (f0 ** 2) * (time - t0) **
 
 #plot source time function
 plt.figure(figsize=(9,9))
-plt.plot(time, src)
-plt.title('Source time function')
+plt.rcParams.update({'font.size': 19})
+plt.plot(time, src, "b", linewidth=2)
 plt.xlabel('Time')
 plt.ylabel('Amplitude')
-plt.grid()
 plt.savefig("Source")
 
 

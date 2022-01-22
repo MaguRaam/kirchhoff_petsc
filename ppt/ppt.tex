@@ -13,7 +13,7 @@
 \usepackage[percent]{overpic}
 \usepackage[para]{footmisc}
 
-\title{Computational study of acoustic waves emitted by collapsing bubbles}
+\title{Computational study of far-field acoustic emission by collapsing bubbles}
 \date{\today}
 \author[shortname]{Ratnesh K. Shukla}
 \institute[shortinst]{Indian Institute of Science, Bangalore}
@@ -80,6 +80,32 @@
 		\caption{Acoustic pressure is computed at observer point $x_{0} = (3, 3, 3)$ using the Kirchhoff method and compared with the analytical solution.}
 	\end{figure}
 \end{frame}
+
+\begin{frame}{Validation of Kirchhoff solver - Euler equation}
+	\begin{itemize}
+		\item We solve the compressible Euler equation
+		\begin{align}
+			\frac{\partial \rho}{\partial t} + \nabla . (\rho \mathbf{u}) = 0,\\
+			\frac{\partial \rho \mathbf{u}}{\partial t} + \nabla . (\rho \mathbf{u} \mathbf{u}) + \nabla P	 = 0,\\
+			\frac{\partial E}{\partial t} + \nabla . ((E + P) \mathbf{u}) = 0,\\
+			p = (\gamma - 1)(E - \frac{1}{2}\rho \mathbf{u}^{2}).
+		\end{align}
+		\item  for an initial density and pressure perturbation from the ambient state
+		\begin{align*}
+			\rho &= \rho_{0} + \rho',\\
+			\mathbf{u}    &= 0,\\
+			p    &= p_{0} + c_{0}^{2}\rho'. 
+		\end{align*}
+	\end{itemize}
+\end{frame}
+\begin{frame}{Validation of Kirchhoff solver - Euler equation}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.17]{images/euler.png}
+		\caption{Acoustic pressure is computed at observer point $x_{0} = (0.8975, 0.8795, 0.8795)$ using the Kirchhoff method and compared with the Euler equation solution.}
+	\end{figure}
+\end{frame}
+
 
 \begin{frame}{Acoustic emission from Rayleigh collapse of a bubble}
 	

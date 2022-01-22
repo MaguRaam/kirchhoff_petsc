@@ -28,22 +28,26 @@ int main(int argc,char **argv) {
     // Set important user defined parameters  
     //---------------------------------------------
 
+    //Radius of the bubble:
+    PetscReal   R       =  .038;
+
     AppCtx Ctx; 
 
-    Ctx.x_min           = -5.0;                            
-    Ctx.x_max           =  5.0;                            
-    Ctx.y_min           = -5.0;                           
-    Ctx.y_max           =  5.0;
-    Ctx.z_min           = -5.0; 
-    Ctx.z_max           =  5.0;
-    Ctx.N_x             =  200;
-    Ctx.N_y             =  200;
-    Ctx.N_z             =  200;
+   
+    Ctx.x_min           = -10.0*R;                                
+    Ctx.x_max           =  10.0*R;                            
+    Ctx.y_min           = -10.0*R;                           
+    Ctx.y_max           =  10.0*R;
+    Ctx.z_min           = -10.0*R; 
+    Ctx.z_max           =  10.0*R;
+    Ctx.N_x             =  250;
+    Ctx.N_y             =  250;
+    Ctx.N_z             =  250;
     Ctx.CFL             =  0.9; 
     Ctx.InitialStep     =  0; 
     Ctx.InitialTime     =  0.0;                            
-    Ctx.FinalTime       =  0.3;                            
-    Ctx.WriteInterval   =  300;      
+    Ctx.FinalTime       =  0.1;                            
+    Ctx.WriteInterval   =  500;      
     Ctx.RestartInterval =  1000;
     Ctx.left_boundary   =  transmissive;                   
     Ctx.right_boundary  =  transmissive;                   
@@ -56,17 +60,17 @@ int main(int argc,char **argv) {
     Ctx.h = (Ctx.x_max - Ctx.x_min)/(PetscReal)(Ctx.N_x);  
     
     //Kirchhoff box surface:
-    Ctx.box.lower[0]    =   40;
-    Ctx.box.lower[1]    =   40;
-    Ctx.box.lower[2]    =   40;
-    Ctx.box.upper[0]    =   160;
-    Ctx.box.upper[1]    =   160;
-    Ctx.box.upper[2]    =   160;
+    Ctx.box.lower[0]    =   30;
+    Ctx.box.lower[1]    =   30;
+    Ctx.box.lower[2]    =   30;
+    Ctx.box.upper[0]    =   220;
+    Ctx.box.upper[1]    =   220;
+    Ctx.box.upper[2]    =   220;
 
     //observer grid point:
-    Ctx.io              =   180;
-    Ctx.jo              =   180;
-    Ctx.ko              =   180;
+    Ctx.io              =   240;
+    Ctx.jo              =   240;
+    Ctx.ko              =   240;
 
 
     // --------------------------------------------
