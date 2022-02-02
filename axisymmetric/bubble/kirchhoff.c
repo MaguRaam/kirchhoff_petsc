@@ -27,7 +27,7 @@ PetscErrorCode  GetCellIndexOnLineSurface(DM da, AppCtx* Ctx){
 
             //check if the cell is located on the Kirchhoff line surface
             if (j == Ctx->surface.j)
-                Ctx->surface.ncells++;
+                Ctx->surface.ncells++;  
 
         }
     }
@@ -109,21 +109,14 @@ PetscErrorCode GetPressureOnLineSurface(Vec U, DM da, AppCtx* Ctx, PetscInt step
 
     PetscErrorCode  ierr;
     PetscInt        xs, ys, xm, ym, i, j;
-    PetscReal       xc, yc;
     Field           **u;
-    PetscReal       u_x_loc[s_width], u_y_loc[s_width], u_xy_loc[s_width];  
-    PetscReal       coeffs[nDOF], ucoeffs[nDOF];
+    PetscReal       pR, pL, pC;  
     PetscReal*      p;
     PetscReal*      pr;
     PetscInt        index = 0;
-    DM              coordDA;
-    Vec             coordinates;
-    DMDACoor2d      **coords;
+    PetscReal       h = Ctx->h;
     
     ierr = DMDAGetCorners(da, &xs, &ys, NULL, &xm, &ym, NULL);CHKERRQ(ierr);
-    ierr = DMGetCoordinateDM(da, &coordDA);CHKERRQ(ierr);
-    ierr = DMGetCoordinates(da, &coordinates);CHKERRQ(ierr);
-    ierr = DMDAVecGetArray(coordDA, coordinates, &coords);CHKERRQ(ierr);
     
 
     // Scatter global->local to have access to the required ghost values 
@@ -144,37 +137,18 @@ PetscErrorCode GetPressureOnLineSurface(Vec U, DM da, AppCtx* Ctx, PetscInt step
 
             //check if the cell is located on the Kirchhoff line surface
             if (j == Ctx->surface.j){
-
-                // Get coordinates of center of the cell 
-                xc = coords[j][i].x; 
-                yc = coords[j][i].y;
                 
-                //collect perturbed pressure p' = p - p0 values from the neighbors in the stencil:
-                u_x_loc[0] = GetPerturbedPressure(&u[j][i-2]); 
-                u_x_loc[1] = GetPerturbedPressure(&u[j][i-1]); 
-                u_x_loc[2] = GetPerturbedPressure(&u[j][i]); 
-                u_x_loc[3] = GetPerturbedPressure(&u[j][i+1]); 
-                u_x_loc[4] = GetPerturbedPressure(&u[j][i+2]);
-                
-                u_y_loc[0] = GetPerturbedPressure(&u[j-2][i]); 
-                u_y_loc[1] = GetPerturbedPressure(&u[j-1][i]); 
-                u_y_loc[2] = GetPerturbedPressure(&u[j][i]); 
-                u_y_loc[3] = GetPerturbedPressure(&u[j+1][i]); 
-                u_y_loc[4] = GetPerturbedPressure(&u[j+2][i]);
+                //collect perturbed pressure p' = p - p0 values from the neighbors in the stencil:                 
+                pL = GetPerturbedPressure(&u[j-1][i]); 
+                pC = GetPerturbedPressure(&u[j][i]); 
+                pR = GetPerturbedPressure(&u[j+1][i]); 
 
-                u_xy_loc[0] = GetPerturbedPressure(&u[j][i]);
-                u_xy_loc[1] = GetPerturbedPressure(&u[j+1][i+1]);
-                u_xy_loc[2] = GetPerturbedPressure(&u[j-1][i+1]);
-                u_xy_loc[3] = GetPerturbedPressure(&u[j+1][i-1]);
-                u_xy_loc[4] = GetPerturbedPressure(&u[j-1][i-1]);
-
-                //compute weno polynomial coefficients:
-                weno(u_x_loc, u_y_loc, u_xy_loc, ucoeffs, coeffs);
 
                 //compute p' and p'r at cell center:
-                p[index] = evaluate_polynomial(xc, yc, coeffs); 
-                pr[index] = evaluate_;
-		
+                p[index]  = pC; 
+                pr[index] = (pR - pL)/(2.0*h);
+                
+
                 //update cell index:
                 index++;
             }
@@ -182,14 +156,12 @@ PetscErrorCode GetPressureOnLineSurface(Vec U, DM da, AppCtx* Ctx, PetscInt step
         }
     }
 
-
     //restore array
     ierr = VecRestoreArray((Ctx->surface.P), &p); CHKERRQ(ierr);
     ierr = VecRestoreArray((Ctx->surface.Pr), &pr); CHKERRQ(ierr);
 
     ierr = DMDAVecRestoreArrayRead(da, Ctx->localU, &u); CHKERRQ(ierr);
-    ierr = DMDAVecRestoreArray(coordDA, coordinates, &coords);CHKERRQ(ierr);
-
+    
     return ierr;
 }
 

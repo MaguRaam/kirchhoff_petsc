@@ -15,7 +15,8 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ) 
 	-${CLINKER} -o $(TARGET) $(OBJ) ${PETSC_LIB}
+	$(RM) $(OBJ)
 	
 
 distclean :
-	@$(RM) $(TARGET) *.vts restart* *.csv kirchhoff/input/* kirchhoff/p_weno.dat
+	$(RM) $(TARGET) *.vts restart* *.csv kirchhoff/input/* kirchhoff/p_weno.dat
