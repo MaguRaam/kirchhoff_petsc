@@ -4,3 +4,7 @@
 
 ### How do I get set up? ###
 * Todo
+
+### Reference
+
+Green's Functions in Computational Aeroacoustics 
