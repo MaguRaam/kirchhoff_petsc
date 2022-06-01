@@ -13,14 +13,6 @@ static char help[] = "Kirchhoff Solver\n";
 #include <petscmath.h> 
 #include <petscdmda.h>
 
-// Five-point quadrature
-
-static const PetscInt N_gp5 = 5; 
-static const PetscReal x_gp5[] = { 0.0000000000000000, -0.2692346550528416,  0.2692346550528416, -0.4530899229693320,  0.4530899229693320}; 
-static const PetscReal w_gp5[] = {0.28444444444444444, 0.23931433524968326, 0.23931433524968326, 0.11846344252809456, 0.11846344252809456};
-
-
-
 
 // -------------------------------------------------
 // Compute area of the cylindrical Kirchhoff surface
@@ -35,26 +27,17 @@ PetscErrorCode  ComputeArea(DM da, PetscReal R, PetscReal hx, PetscReal hy){
   
 
   PetscReal  global_area = 0.0, local_area = 0.0;
-  PetscInt    xs, ys, xm, ym, i, j, l , m;
-  PetscReal   xc, yc, xGP, yGP;
+  PetscInt    xs, ys, xm, ym, i, j;
+  PetscReal   xc, yc;
 
   ierr = DMDAGetCorners(da, &xs, &ys, NULL, &xm, &ym, NULL);CHKERRQ(ierr);
   ierr = DMGetCoordinateDM(da, &coordDA);CHKERRQ(ierr);
   ierr = DMGetCoordinates(da, &coordinates);CHKERRQ(ierr);
   ierr = DMDAVecGetArray(coordDA, coordinates, &coords);CHKERRQ(ierr);
 
-  for (j = ys; j < ys + ym; ++j){
-    for (i = xs; i < xs + xm; ++i){
-
-
-      for (l = 0; l < N_gp5; ++l){
-        for (m = 0; m < N_gp5; ++m){
-          local_area += w_gp5[l]*w_gp5[m];
-        }
-      }
-    
-    }
-  }
+  for (j = ys; j < ys + ym; ++j)
+    for (i = xs; i < xs + xm; ++i)
+      local_area += 1.0;
 
   //accumulate area from all the process:
   ierr = MPI_Allreduce(&local_area, &global_area, 1, MPIU_REAL, MPIU_SUM, PETSC_COMM_WORLD); CHKERRQ(ierr);
@@ -64,8 +47,6 @@ PetscErrorCode  ComputeArea(DM da, PetscReal R, PetscReal hx, PetscReal hy){
 
   ierr = PetscPrintf(PETSC_COMM_WORLD, "exact area = %.16g\n", 2.0*PETSC_PI*R*2.0*0.38); CHKERRQ(ierr);
   ierr = PetscPrintf(PETSC_COMM_WORLD, "numerical area = %.16g\n", global_area); CHKERRQ(ierr);
-
-
 
   ierr = DMDAVecRestoreArray(coordDA, coordinates, &coords);CHKERRQ(ierr);
 
@@ -91,14 +72,14 @@ int main(int argc, char **argv){
   // Set important user defined parameters
   //---------------------------------------------
   
-  PetscReal x_min       =   -0.38;                                        // z direction begining
-  PetscReal x_max       =    0.38;                                        // z direction ending
-  PetscReal y_min       =    0.0;                                         // theta direction begining
-  PetscReal y_max       =    2.0*PETSC_PI;                                // theta direction ending
+  PetscReal x_min       =   -0.38;                                        //z direction begining                                        // z direction begining
+  PetscReal x_max       =    0.38;                                        //z direction ending                                   // z direction ending
+  PetscReal k_min       =    0.0;                                         // theta direction begining
+  PetscReal k_max       =    2.0*PETSC_PI;                                // theta direction ending
   PetscInt  Nx          =    500;                                         // no of cells along z axis
   PetscInt  Ny          =    2000;                                        // no of cells along theta axis
   PetscReal hx          =    (x_max - x_min)/(PetscReal)(Nx);             // grid size along z axis
-  PetscReal hy          =    (y_max - y_min)/(PetscReal)(Ny);             // grid size along theta axis
+  PetscReal hy          =    (k_max - k_min)/(PetscReal)(Ny);             // grid size along theta axis
   PetscReal R           =    1.0;                                         // Location of Kirchhoff surface
 
 
@@ -127,11 +108,7 @@ int main(int argc, char **argv){
   
   ierr = DMDACreate2d(PETSC_COMM_WORLD, DM_BOUNDARY_PERIODIC, DM_BOUNDARY_PERIODIC, DMDA_STENCIL_BOX, Nx, Ny, PETSC_DECIDE, PETSC_DECIDE, 1, 1, NULL, NULL, &da); CHKERRQ(ierr);
   ierr = DMSetUp(da);CHKERRQ(ierr);
-  ierr = DMDASetUniformCoordinates(da, x_min + 0.5*hx, x_max - 0.5*hx, y_min + 0.5*hy, y_max - 0.5*hy , 0.0, 0.0); CHKERRQ(ierr);
-  
-  
-  ierr = ComputeArea(da, R, hx, hy); CHKERRQ(ierr);
-
+  ierr = DMDASetUniformCoordinates(da, x_min + 0.5*hx, x_max - 0.5*hx, k_min + 0.5*hy, k_max - 0.5*hy , 0.0, 0.0); CHKERRQ(ierr);
 
 
 
