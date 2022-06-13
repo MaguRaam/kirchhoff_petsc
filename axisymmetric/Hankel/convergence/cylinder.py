@@ -11,11 +11,12 @@ data = np.loadtxt("cylinder.dat")
 # Creating figure
 fig = plt.figure()
 ax = plt.axes(projection ="3d")
-ax.set_xlabel('X', fontweight ='bold')
-ax.set_ylabel('Y', fontweight ='bold')
-ax.set_zlabel('Z', fontweight ='bold')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
 
 # Creating plot
 ax.scatter3D(data[:,0], data[:,1], data[:,2], color = "blue")
-plt.savefig("quadpoints.png")
+plt.title("Quadrature points on the cylindrical Kirchhoff surface")
+plt.savefig("cylinder.png")
 plt.show()

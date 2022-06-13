@@ -8,10 +8,11 @@ import numpy as np
 data = np.loadtxt("plot.dat")
 
 #plot
-plt.plot(data[:,0], data[:,1],linestyle="-", color='red')
+fig,ax = plt.subplots()
+plt.figure(figsize=(14,14))
+plt.rcParams.update({'font.size': 30})
+plt.plot(data[:,0], data[:,1],linestyle="-", color='red', linewidth=3)
 
-
-plt.title("cylindrical wave at t = 1")
-plt.xlabel("r")
-plt.ylabel("p")
-plt.savefig("t_1.png")
+plt.xlabel('radius, $r$')
+plt.ylabel('acoustic pressure, $p - p_{0}$')
+plt.savefig("cylindrical.png")

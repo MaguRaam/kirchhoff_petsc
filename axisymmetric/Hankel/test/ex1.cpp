@@ -36,7 +36,7 @@ void write(const std::vector<double>& x, const std::vector<double>& p){
 int main(){
 
 	//parameters:
-	double rmin = 0.001;
+	double rmin = 0.0000001;
 	double rmax = 20.0;
 	int nr = 10000;
 	double dr = (rmax - rmin)/static_cast<double>(nr - 1);
