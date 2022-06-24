@@ -216,7 +216,7 @@ class Kirchhoff
 	//cell size dh = dr = dtheta = dz
 	double dh = 0.1;
 
-	// no of nodes:
+	// no of nodes: ERROR!
 	int Nnodes_r = (r_max - r_min)/dh;											// no of nodes along r direction
 	int Nnodes_theta = (theta_max - theta_min)/dh;					// no of nodes along theta direction
 	int Nnodes_z = (z_max - z_min)/dh;											// no of nodes along z direction

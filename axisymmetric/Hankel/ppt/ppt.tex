@@ -147,10 +147,21 @@
 		\end{equation}
 		\item Where $k^2 = {\omega^2}/{c^2}$. The general solution of equation is given by Hankel function
 		\begin{equation}
-			p'(r, t) = AH_{0}^2(kr)e^{i\omega t}.
+			p'(r, t) = AH_{0}^{(1)}(kr)e^{i\omega t}.
 		\end{equation}
 	\end{itemize}
 \end{frame}
+
+\begin{frame}{Axisymmetric test case - Cylindrical wave}
+	\begin{itemize}
+		\item The solution $p'(r, t) = AH_{0}^{(1)}(kr)e^{i\omega t}$ is singular at $r = 0$. 
+		\item For $r \to 0 $ The function has a logarithmic singularity
+		\begin{equation}
+			p'(r, t) \cong (2i A/\pi)\log(k r)e^{-i\omega t}.
+		\end{equation}
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Axisymmetric test case - Cylindrical wave}
 	\begin{itemize}
@@ -282,6 +293,7 @@
 	\bibliographystyle{amsplain}
 	\begin{thebibliography}{99}
 		\bibitem{propeller} Duttweiler M. E., Brennen C. E. Surge instability on a cavitating propeller [J]. Journal of Fluid Mechanics, 2002, 458: 133-152.
+		
 	\end{thebibliography}
 \end{frame}
 
