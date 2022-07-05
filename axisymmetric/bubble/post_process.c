@@ -215,7 +215,7 @@ PetscErrorCode MonitorFunction (TS ts,PetscInt step, PetscReal time, Vec U, void
     ierr = DMDAVecRestoreArrayRead(da, U, &u); CHKERRQ(ierr);
 
     //Write p', p'r on Kirchhoff surface:
-    ierr = GetPressureOnLineSurface(U, da, Ctx, step); CHKERRQ(ierr);
+    ierr = GetPressureOnSurface(U, da, Ctx, step); CHKERRQ(ierr);
 
 
     return ierr;

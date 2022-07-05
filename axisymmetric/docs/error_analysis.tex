@@ -1,0 +1,58 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{amsmath, latexsym}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{bigints}
+\usepackage{float}
+\usepackage{titling}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[style=authoryear,sorting=nty,maxcitenames=1]{biblatex}
+
+
+
+\title{Error analysis for two-point Gaussian quadrature formula}
+\author{}
+\date{\today}
+\addbibresource{references.bib}
+
+\begin{document}
+\maketitle
+\section*{Analysis}
+We analyse the error estimate for the Gaussian quadrature formula. The two-point Gaussian quadrature formula on an interval $[-h/2, h/2]$ is given by
+\begin{equation}\label{Error}
+    E(f) = \int_{-h/2}^{h/2}f(x)dx - \Big(w_0f(x_0) + w_1f(x_1) \Big).
+\end{equation}
+Where $w_0 = w_1 = {h}/{2}$, $x_0 = {-h}/{2\sqrt{3}}$ and $x_1 = {h}/{2\sqrt{3}}$.
+Using the Taylor expansion about $x = 0$ the integral
+\begin{equation}\label{Integral}
+    \begin{split}
+        \int_{-h/2}^{h/2}f(x)dx &= \int_{-h/2}^{h/2} \Big( f(0) + f'(0)x + \frac{1}{2!}f''(0)x^2 + \frac{1}{3!}f'''(0)x^3 + \frac{1}{4!}f''''(0)x^4 + ... \Big)\\
+                            &= \Big( f(0)x + \frac{1}{2!}f'(0)x^2 + \frac{1}{3!}f''(0)x^3 + \frac{1}{4!}f'''(0)x^4 + \frac{1}{5!}f''''(0)x^5 ... \Big)\Big|^{h/2}_{-h/2}\\
+                            &= hf(0) + f''(0)\frac{h^3}{4!} + \frac{1}{16}f''''(0)\frac{h^5}{5!} + ...
+    \end{split}
+\end{equation}
+We expand the Gaussian quadrature formula using the Taylor expansion
+
+\begin{equation}\label{Quadrature}
+    \frac{h}{2}\Big(f(-h/{2\sqrt{3}}) + f(h/{2\sqrt{3}}) \Big) = hf(0) + f''(0)\frac{h^3}{4!} + f''''(0)\frac{h^5}{3456} + ...
+\end{equation}
+Substituting (\ref{Integral}) and (\ref{Quadrature}) in (\ref{Error}) we obtain
+\begin{equation}
+    E(f) = Cf''''(0)h^5 + ...
+\end{equation}
+The leading-order term is fifth-oder.
+\section*{Conclusion}
+We have shown that the two-point Gaussian quadrature formula is fifth-order accurate.
+\printbibliography
+\end{document}
+
+
+\printbibliography
+\end{document}
+

@@ -29,31 +29,33 @@ int main(int argc,char **argv) {
 
     AppCtx Ctx; 
 
-    Ctx.x_min           = -10.0*R;
-    Ctx.x_max           =  10.0*R;
+    Ctx.x_min           = -10.0*R0;
+    Ctx.x_max           =  10.0*R0;
     Ctx.y_min           =  0.0;
-    Ctx.y_max           =  10.0*R;
+    Ctx.y_max           =  10.0*R0;
     Ctx.N_x             =  500;
     Ctx.N_y             =  250;
     Ctx.CFL             =  0.9;
     Ctx.InitialStep     =  0;
     Ctx.InitialTime     =  0.0;
-    Ctx.FinalTime       =  0.1;
-    Ctx.WriteInterval   =  1000;      
-    Ctx.RestartInterval =  1000;
-    Ctx.left_boundary   =  periodic;
-    Ctx.right_boundary  =  periodic;
+    Ctx.FinalTime       =  0.2;
+    Ctx.WriteInterval   =  200;      
+    Ctx.RestartInterval =  500;
+    Ctx.left_boundary   =  transmissive;
+    Ctx.right_boundary  =  transmissive;
     Ctx.bottom_boundary =  transmissive;
     Ctx.top_boundary    =  transmissive;
     Ctx.Restart         =  PETSC_FALSE;
     Ctx.h               =  (Ctx.x_max - Ctx.x_min)/(PetscReal)(Ctx.N_x);
 
     //j index of Kirchhoff surface:
-    Ctx.surface.j       =   230;  
+    Ctx.surface.j_curved =   230;  
+    Ctx.surface.i_top    =   10;
+    Ctx.surface.i_bottom =   490;
 
     //observer grid point:
-    Ctx.io              =   250;
-    Ctx.jo              =   240;
+    Ctx.io               =   250;
+    Ctx.jo               =   240;
     
     //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // No need to change anything beyond this point 
@@ -128,8 +130,8 @@ int main(int argc,char **argv) {
    
    
     // Allocate Memory for Kirchhoff line surface:
-    ierr = GetCellIndexOnLineSurface(da, &Ctx); CHKERRQ(ierr);
-    ierr = InitializePressureOnLineSurface(da, &Ctx); CHKERRQ(ierr);
+    ierr = GetCellIndexOnSurface(da, &Ctx); CHKERRQ(ierr);
+    ierr = InitializePressureOnSurface(&Ctx); CHKERRQ(ierr);
 
     // Set names of the fields
                                         
@@ -308,7 +310,7 @@ int main(int argc,char **argv) {
     ierr = TSDestroy(&ts);CHKERRQ(ierr);
     ierr = VecDestroy(&Ctx.localU);CHKERRQ(ierr);
     ierr = VecDestroy(&Ctx.W);CHKERRQ(ierr);
-    ierr = DestroyKirchoffLineSurface(&Ctx); CHKERRQ(ierr);
+    ierr = DestroyKirchoffSurface(&Ctx); CHKERRQ(ierr);
 
     free5d(Ctx.u_bnd);
     free6d(Ctx.u_bnd_grad);

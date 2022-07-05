@@ -1,3 +1,6 @@
+//Compute area of a circle and study the convergence
+
+
 // boost headers:
 #include <boost/math/special_functions.hpp>
 #include <boost/multi_array.hpp>
@@ -86,7 +89,7 @@ double circle_area(double R, double dh){
                 //get r and theta at quad points:
 				double r_q = x(psi[q], r[i], dr);
 
-                cell_integral += log(r_q)*r_q*dr*dtheta*w[q]; //TODO
+                cell_integral += r_q*dr*dtheta*w[q]; 
             }
 
             //accumulate cell integral to global integral
@@ -103,8 +106,10 @@ double circle_area(double R, double dh){
 
 int main()
 {
-    double R = 1.0;     //Radius of the circle
-    double dh = 0.1;   //grid size:
+    double R = 10.;                       //radius of the circle
+    double dh = 5.;                      //grid size:
+    double exact_area = pi*R*R;           //area of the circle
+
 
     //write area error:
     std::ofstream file("error.dat", std::ios::app);
@@ -115,8 +120,6 @@ int main()
     }
 
     for (int i = 1; i < 5; ++i){
-
-        double exact_area = -1.5707963344618505e+00;
 
         double error = fabs(circle_area(R, dh) -  exact_area);
 
@@ -129,6 +132,3 @@ int main()
     
     return 0;
 }
-
-
-//0.25*R*R*(2.*log(R) - 1.0)*2.0*pi

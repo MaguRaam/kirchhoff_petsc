@@ -41,7 +41,7 @@ void RayleighCollapse(PetscReal x, PetscReal y, PetscReal* Q0) {
     PetscReal V0[nVar];
 
     PetscReal eps = 1.0e-5;
-    PetscReal x0 = 0.0, y0 = 0.0, R0 = 0.038; // Center and radius of the bubble
+    PetscReal x0 = 0.0, y0 = 0.0; // Center of the bubble
     PetscReal smear = 1.0;
     PetscReal h = 20.0*R0/500.0;
 

@@ -6,9 +6,7 @@ from math import log
 
 def convergence_plot(h,error,filename):
   fig,ax = pyplot.subplots()
-  pyplot.figure(figsize=(35,35))
-  pyplot.rcParams.update({'font.size': 30})
-  pyplot.loglog(h, error,'-b',label = 'error',marker = 'o',linewidth=10)
+  pyplot.loglog(h, error,'-b',label = 'error',marker = 'o')
   leg = ax.legend()
   pyplot.title("Convergence of Kirchhoff Integral")
   pyplot.xlabel("h")

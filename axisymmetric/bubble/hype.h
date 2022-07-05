@@ -49,7 +49,7 @@ static const PetscReal rho_floor     = 1.0e-14; /* Density floor value */
 static const PetscReal small_num     = 1.0e-12; /* Effective small number in the code */
 static const PetscInt  s_width       = 5;       /* Width of the stencil */ 
 
-static const PetscReal R             = 0.038;   /* Bubble radius*/
+static const PetscReal R0             = 0.038;   /* Bubble radius*/
 
 // Mid-point Rule  (One-point gauss quadrature)
 
@@ -251,10 +251,25 @@ void min_max_7d(array7d*, PetscReal*, PetscReal*);
 //----------------------------------------------------------------------------------
 typedef struct{
 
-  PetscInt  j;                        /* j index of Kirchhoff line surface*/   
-  Vec       i;                        /* i indices of Kirchhoff Line surface */
-  PetscInt ncells;                    /* no of cells on the Kirchhoff line surface in the current process*/
-  Vec      P, Pr;                     /* perturbed pressure and its normal derivative stored at quadrature points*/
+  //top
+  PetscInt i_top;                    /* i index of the top surface to be set by user*/
+  Vec j_top;                         /* j indices of top surface*/ 
+  Vec P_top, Pz_top;                 /* perturbed pressure and its normal derivative stored at quadrature points*/
+  PetscInt ncells_top;               /* no of cells on the top surface in the current process*/
+
+  //bottom
+  PetscInt i_bottom;                 /* i index of the bottom surface to be set by user*/
+  Vec j_bottom;                      /* j indices of bottom surface*/ 
+  Vec P_bottom, Pz_bottom;           /* perturbed pressure and its normal derivative stored at quadrature points*/
+  PetscInt ncells_bottom;            /* no of cells on the bottom surface in the current process*/
+
+  //curved
+  PetscInt j_curved;                 /* j index of the curved surface to be set by user*/
+  Vec i_curved;                      /* j indices of curved surface*/ 
+  Vec P_curved, Pr_curved;           /* perturbed pressure and its normal derivative stored at quadrature points*/
+  PetscInt ncells_curved;            /* no of cells on the curved surface in the current process*/
+
+
 
 } Kirchhoff;
 
@@ -348,10 +363,10 @@ PetscErrorCode ComputePrimitiveVariables(Vec, Vec, DM);
 //----------------------------------------------------------------------------
 // Functions related to the Kirchhoff line surface 
 //----------------------------------------------------------------------------
-PetscErrorCode GetCellIndexOnLineSurface(DM, AppCtx*);
-PetscErrorCode InitializePressureOnLineSurface(DM, AppCtx*);
-PetscErrorCode GetPressureOnLineSurface(Vec, DM, AppCtx*, PetscInt);
-PetscErrorCode  DestroyKirchoffLineSurface(AppCtx*);
+PetscErrorCode GetCellIndexOnSurface(DM, AppCtx*);
+PetscErrorCode InitializePressureOnSurface(AppCtx*);
+PetscErrorCode GetPressureOnSurface(Vec, DM, AppCtx*, PetscInt);
+PetscErrorCode DestroyKirchoffSurface(AppCtx*);
 
 
 #endif /* HYPE_H_ */ 
