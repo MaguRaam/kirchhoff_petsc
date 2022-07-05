@@ -20,4 +20,4 @@ $(TARGET): $(OBJ)
 	$(RM) $(OBJ)
 
 distclean :
-	$(RM) $(TARGET)  input/curved/* input/top/* input/bottom/* *.vts *.csv restart* 
+	$(RM) $(TARGET) 
