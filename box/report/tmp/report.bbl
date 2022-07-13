@@ -1,0 +1,194 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{FARASSAT1988451}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=f5eb847514c5a75b97626eb14a60cdd1}{%
+           family={Farassat},
+           familyi={F\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b077b658b07e3a77a8ee0fd02a507b1c}{%
+           family={Myers},
+           familyi={M\bibinitperiod},
+           given={M.K.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{15a9b365f375fa41dbb9c0deff9a778c}
+      \strng{fullhash}{cfaa8c0df834b605f91efcb813702489}
+      \strng{bibnamehash}{cfaa8c0df834b605f91efcb813702489}
+      \strng{authorbibnamehash}{cfaa8c0df834b605f91efcb813702489}
+      \strng{authornamehash}{15a9b365f375fa41dbb9c0deff9a778c}
+      \strng{authorfullhash}{cfaa8c0df834b605f91efcb813702489}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Sound and Vibration}
+      \field{title}{Extension of Kirchhoff's formula to radiation from moving surfaces}
+      \field{volume}{123}
+      \field{year}{1988}
+      \field{pages}{451\bibrangedash 460}
+      \range{pages}{10}
+    \endentry
+    \entry{ffowcs1969sound}{article}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=8ec0f3c637ae7645eb2f9744fe704fa4}{%
+           family={Ffowcs\bibnamedelima Williams},
+           familyi={F\bibinitperiod\bibinitdelim W\bibinitperiod},
+           given={John\bibnamedelima E},
+           giveni={J\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=daae8d74623e726f481f297806a8d2a8}{%
+           family={Hawkings},
+           familyi={H\bibinitperiod},
+           given={David\bibnamedelima L},
+           giveni={D\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{43e2d25c524d1302b8cdf1ff774c145c}
+      \strng{fullhash}{c18099d0d1adf2751aaecd32674ae035}
+      \strng{bibnamehash}{c18099d0d1adf2751aaecd32674ae035}
+      \strng{authorbibnamehash}{c18099d0d1adf2751aaecd32674ae035}
+      \strng{authornamehash}{43e2d25c524d1302b8cdf1ff774c145c}
+      \strng{authorfullhash}{c18099d0d1adf2751aaecd32674ae035}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society of London. Series A, Mathematical and Physical Sciences}
+      \field{title}{Sound generation by turbulence and surfaces in arbitrary motion}
+      \field{volume}{264}
+      \field{year}{1969}
+      \field{pages}{321\bibrangedash 342}
+      \range{pages}{22}
+    \endentry
+    \entry{howe2003theory}{book}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=38913500ae6e68486c7bec9fb176928b}{%
+           family={Howe},
+           familyi={H\bibinitperiod},
+           given={MS},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge university press}%
+      }
+      \strng{namehash}{38913500ae6e68486c7bec9fb176928b}
+      \strng{fullhash}{38913500ae6e68486c7bec9fb176928b}
+      \strng{bibnamehash}{38913500ae6e68486c7bec9fb176928b}
+      \strng{authorbibnamehash}{38913500ae6e68486c7bec9fb176928b}
+      \strng{authornamehash}{38913500ae6e68486c7bec9fb176928b}
+      \strng{authorfullhash}{38913500ae6e68486c7bec9fb176928b}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Theory of vortex sound}
+      \field{year}{2003}
+    \endentry
+    \entry{jamaluddin}{article}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=2c15ddf713f55f241932285b907e2d4c}{%
+           family={Jamaluddin},
+           familyi={J\bibinitperiod},
+           given={A.\bibnamedelimi R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=40922e44bbbc533c3aaeec2858e3cc89}{%
+           family={Ball},
+           familyi={B\bibinitperiod},
+           given={G.\bibnamedelimi J.},
+           giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9067613f9ea454963a724bf63a10091e}{%
+           family={Turangan},
+           familyi={T\bibinitperiod},
+           given={C.\bibnamedelimi K.},
+           giveni={C\bibinitperiod\bibinitdelim K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b7e9a1cd78228a64c5c0db254fe37016}{%
+           family={Leighton},
+           familyi={L\bibinitperiod},
+           given={T.\bibnamedelimi G.},
+           giveni={T\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{ffc37cc38eade2bec0d8bab9e593a74d}
+      \strng{fullhash}{b3d2719ec29d6bf44129dad2ec9d0941}
+      \strng{bibnamehash}{ffc37cc38eade2bec0d8bab9e593a74d}
+      \strng{authorbibnamehash}{ffc37cc38eade2bec0d8bab9e593a74d}
+      \strng{authornamehash}{ffc37cc38eade2bec0d8bab9e593a74d}
+      \strng{authorfullhash}{b3d2719ec29d6bf44129dad2ec9d0941}
+      \field{sortinit}{J}
+      \field{sortinithash}{c45040a764d616897e7f5b30174d7b92}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Fluid Mechanics}
+      \field{title}{The collapse of single bubbles and approximation of the far-field acoustic emissions for cavitation induced by shock wave lithotripsy}
+      \field{volume}{677}
+      \field{year}{2011}
+      \field{pages}{305\bibrangedash 341}
+      \range{pages}{37}
+    \endentry
+    \entry{lighthill1952sound}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=eea1108242f9788f484f1806161a8e45}{%
+           family={Lighthill},
+           familyi={L\bibinitperiod},
+           given={M.J.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{eea1108242f9788f484f1806161a8e45}
+      \strng{fullhash}{eea1108242f9788f484f1806161a8e45}
+      \strng{bibnamehash}{eea1108242f9788f484f1806161a8e45}
+      \strng{authorbibnamehash}{eea1108242f9788f484f1806161a8e45}
+      \strng{authornamehash}{eea1108242f9788f484f1806161a8e45}
+      \strng{authorfullhash}{eea1108242f9788f484f1806161a8e45}
+      \field{sortinit}{L}
+      \field{sortinithash}{dad3efd0836470093a7b4a7bb756eb8c}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proc. R. Soc. Lond.A Math. Phys. Sci.}
+      \field{title}{On sound generated aerodynamically I. General theory}
+      \field{volume}{211}
+      \field{year}{1952}
+      \field{pages}{564\bibrangedash 587}
+      \range{pages}{24}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

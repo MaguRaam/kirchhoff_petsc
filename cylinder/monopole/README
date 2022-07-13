@@ -1,0 +1,3 @@
+1) Kirchhoff integral on a cylindrical surface to compute far-field sound emitted by a monople source.
+2) We have shown fourth-order convergence for 2-point Gauss quadrature
+3) Note: the Pressure on the Kirchhoff surface is directly computed using the function value rather reading from a file

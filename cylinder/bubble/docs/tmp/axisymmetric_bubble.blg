@@ -1,0 +1,9 @@
+[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
+[1] Config.pm:307> INFO - Logfile is 'tmp/axisymmetric_bubble.blg'
+[131] biber:322> INFO - === Tue Jul 12, 2022, 09:24:42
+[158] Biber.pm:415> INFO - Reading 'tmp/axisymmetric_bubble.bcf'
+[267] Biber.pm:943> INFO - Found 0 citekeys in bib section 0
+[277] Utils.pm:293> WARN - The file 'tmp/axisymmetric_bubble.bcf' does not contain any citations!
+[292] bbl.pm:652> INFO - Writing 'tmp/axisymmetric_bubble.bbl' with encoding 'UTF-8'
+[292] bbl.pm:755> INFO - Output to tmp/axisymmetric_bubble.bbl
+[292] Biber.pm:128> INFO - WARNINGS: 1

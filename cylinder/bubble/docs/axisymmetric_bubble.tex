@@ -1,0 +1,46 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{amsmath, latexsym}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{bigints}
+\usepackage{float}
+\usepackage{titling}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[style=authoryear,sorting=nty,maxcitenames=1]{biblatex}
+
+
+\title{Axisymmetric bubble collapse}
+\date{}
+\addbibresource{references.bib}
+
+
+\begin{document}
+\maketitle
+\section*{Simulation parameters}
+We chose an axisymmetric flow domain of size $[-10R, 10R]\times[0, 10R]$, where $R = 0.038$ is the radius of the bubble placed at the center $r,z = 0$. The far-field observer point to measure the acoustic wave is placed at $r_o = 9R$ and $z_o = 0$. The flow domain is discretized using cartesian mesh of spacing $25$ nodes/$R$. We enclose the bubble with a cylindrical Kirchhoff surface of height $h = 18R$ and radius $r = 6R$ centerd at origin.
+\begin{table}[h!]
+    \begin{center}
+        \begin{tabular}{ccc}
+            \hline
+            Initial conditions      & medium   & bubble     \\
+            \hline
+                                          &         &         \\
+            Density, $\rho$  & 1000    & 1.0     \\
+            Pressure, $P$            & 1.0e6  & 1.0e5  \\
+            Specific heat ratio, $\gamma$ & 4.4     & 1.4     \\
+            Stiffness constant, $P_{\infty}$ & 6000 & 0 \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+The speed of sound in the far-field acoustic medium is given by $\sqrt{\gamma(P + P_{\infty})/\rho} = 66.5$. 
+
+
+\printbibliography
+\end{document}

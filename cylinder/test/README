@@ -1,0 +1,7 @@
+1) We compute the exact pressure emitted by a monopole source on cell centers of axisymmetric grid:
+2) We create a rectangular line on which pressure data is witten to files in kirchhoff/input/ directory
+3) Then kirchhoff integral on a cylindrical surface to compute far-field sound emitted by a monople source.
+
+TODO
+We have to shown fourth-order convergence for 2-point Gauss quadrature
+and time interpolation also plays an important role(Need to think about this)
